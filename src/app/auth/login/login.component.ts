@@ -16,6 +16,8 @@ export class LoginComponent {
     password: "",
   }
 
+  errorMessage: string = ""
+
   constructor(public apiServ: ApiService, private router: Router) {}
 
   async handleLoginSubmit() : Promise<void> {
@@ -26,7 +28,7 @@ export class LoginComponent {
       },
       body: JSON.stringify(this.user)
     })
-    response = await response.json()
-    console.log(response)
+    response.status == 200 ? this.router.navigate(['/otp']) : this.errorMessage = 'User already exists!'; this.user.email = "";
+    
     }
 }
